@@ -1,0 +1,60 @@
+package Ejercicio_9;
+
+import POJOS.Dia;
+
+import java.util.Scanner;
+
+public class Ejercicio_9 {
+    Dia [] dias;
+    Scanner scanner;
+
+    public Ejercicio_9() {
+        dias = new Dia[5];
+        scanner = new Scanner(System.in);
+    }
+    public void ejecutar() {
+        // Llenamos las temperaturas
+        for (int i = 0; i < dias.length; i++) {
+            System.out.println("Temperatura minima dias ["+i+"]");
+            double minima = scanner.nextDouble();
+            System.out.println("Temperatura maxima dias ["+i+"]");
+            double maxima = scanner.nextDouble();
+            double media = (minima + maxima) / 2.0;
+            Dia dia = new Dia(minima, maxima, media);
+            dias[i] = dia;
+        }
+        //Mostramos temperaturas medias
+        System.out.println("\n Temperaturas medias");
+        for (int i = 0; i < dias.length; i++) {
+            System.out.println("Temperatura media dias ["+i+"]"+dias[i].getTemperaturaMedia());
+        }
+        // Ordenamos en busca de las minimas
+        for (int i = 0; i < dias.length - 1; i++) {
+            for (int j = 0; j < dias.length - 1 - i; j++) {
+                if (dias[j].getTemperaturaMinima() > dias[j+1].getTemperaturaMinima()) {
+                    Dia aux = dias[j];
+                    dias[j] = dias[j+1];
+                    dias[j+1] = aux;
+                }
+            }
+        }
+        //Mostramos temperaturas minimas
+        System.out.println("\n Temperaturas minimas");
+        for (int i = 0; i < 2; i++) {
+            System.out.println("Temperatura minima dias ["+i+"]"+dias[i].getTemperaturaMinima());
+        }
+        // Comparamos temperatura
+        System.out.println("\n Introduzca una temperatura Maxima: ");
+        double temperatura = scanner.nextDouble();
+        int contador=0;
+        for (int i = 0; i < dias.length; i++) {
+            if (dias[i].getTemperaturaMaxima() == temperatura) {
+                System.out.println(dias [i]);
+                contador++;
+            }
+        }
+        if (contador == 0) {
+            System.out.println("No se encontraron dias que coincidan con la temperatura ingresada");
+        };
+    }
+}
